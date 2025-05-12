@@ -1,13 +1,13 @@
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const mongoose = require('mongoose');
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import mongoose from 'mongoose';
 
 // Load schema and resolvers
-const typeDefs = require('./schema/schema');
-const resolvers = require('./resolver/resolver');
+import typeDefs from './schema/schema.js';
+import resolvers from './resolver/resolver.js';
 
 //load mongdb methods
-const mongoDbMethods = require('./data/data')
+import MongoDataMethods from './data/data.js'
 
 //connect to MongoDB
 const connectDB = async () => {
@@ -28,7 +28,7 @@ async function startServer() {
   const server =  new ApolloServer({
   typeDefs,
   resolvers,
-  context: () => ({ mongoDbMethods })
+  context: () => ({ MongoDataMethods })
 });
 
 await server.start();
