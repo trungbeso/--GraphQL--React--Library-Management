@@ -12,7 +12,7 @@ const mongoDbMethods = require('./data/data')
 //connect to MongoDB
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://nqtrung555:gzEEf84NLzHMVlyP@library-management.hc9hmsk.mongodb.net/', {
+    await mongoose.connect('', {
       dbName: 'library-management'
     })
     console.log('MongoDB connected...');
