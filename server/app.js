@@ -1,14 +1,34 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const mongoose = require('mongoose');
 
 // Load schema and resolvers
 const typeDefs = require('./schema/schema');
 const resolvers = require('./resolver/resolver');
 
+//load mongdb methods
+const mongoDbMethods = require('./data/data')
+
+//connect to MongoDB
+const connectDB = async () => {
+  try {
+    await mongoose.connect('mongodb+srv://nqtrung555:gzEEf84NLzHMVlyP@library-management.hc9hmsk.mongodb.net/', {
+      dbName: 'library-management'
+    })
+    console.log('MongoDB connected...');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    process.exit(1); 
+  }
+}
+
 async function startServer() {
+  await connectDB();
+
   const server =  new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: () => ({ mongoDbMethods })
 });
 
 await server.start();
